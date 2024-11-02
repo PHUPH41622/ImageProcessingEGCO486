@@ -9,7 +9,7 @@ Write about how to use this project.
 - I use conda environment for this project or you can use virtual environment
 ```
 $ conda create --name co486 python=3.11
-& conda activate 2d2p
+& conda activate co486
 & pip install uv
 & uv pip install -r requirements.txt
 ```
@@ -29,17 +29,19 @@ basic details about files, below.
 │   │   │   ├── weights
 │   │   │   │   ├── best.pt
 │   │   │   │   └── last.pt
-│   │   │   ├── other result from training...
+│   │   │   └── other result from training...
+├── src
+│   ├── predict.py                                     // python file for predicting a simgle sample image (writing bounding box and classes).
+│   ├── preprocess.py                                  // python file for preprocess the datasets before train.
+│   ├── rename.py                                      // python file for rename the entire datasets.
+│   ├── train.py                                       // python file for training yolov8.
+│   └── video_predict.py                               // python file for predicting a video (writing bounding box and classes).
 ├── README.md                                          // Overview and instructions for this project.
 ├── config.yaml                                        // config file for the training session.
 ├── obj.data                                           // obj result from training.
 ├── obj.names                                          // obj result from training.
-├── predict.py                                         // python file for predicting a simgle sample image (writing bounding box and classes).
-├── preprocess.py                                      // python file for preprocess the datasets before train.
-├── rename.py                                          // python file for rename the entire datasets.
-├── train.py                                           // python file for training yolov8.
-├── train.txt                                          // text file result from training.
-└── video_predict.py                                   // python file for predicting a video (writing bounding box and classes).
+├── requirements.txt                                   // requirements packages installation for this project.
+└── train.txt                                          // text file result from training.
 ```
 
 
