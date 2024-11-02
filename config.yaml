@@ -1,0 +1,10 @@
+path: 'E:\ImageProcessingProj\train'
+train: images
+val: images
+
+names:
+  0: snack
+  1: water
+  2: milk
+  3: cracker
+  4: candy
