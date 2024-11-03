@@ -36,6 +36,9 @@ basic details about files, below.
 │   ├── rename.py                                      // python file for rename the entire datasets.
 │   ├── train.py                                       // python file for training yolov8.
 │   └── video_predict.py                               // python file for predicting a video (writing bounding box and classes).
+├── validate_data                                      // use for validate or test the model
+│   ├── images
+│   └── videos
 ├── README.md                                          // Overview and instructions for this project.
 ├── config.yaml                                        // config file for the training session.
 ├── obj.data                                           // obj result from training.
@@ -48,4 +51,7 @@ basic details about files, below.
 ##  :camera: Gallery![sample](https://github.com/user-attachments/assets/784f53d6-153c-4d9d-a358-d35469ed8172)
 
 ## :star2: Credit/Acknowledgment
-Credit the authors here.
+Napasrapee Satittham
+Sorawit Phattarakuldilok
+Thinnaphat Phumphotingam
+Wish Semangern
