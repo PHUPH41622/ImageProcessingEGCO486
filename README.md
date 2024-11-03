@@ -51,7 +51,9 @@ basic details about files, below.
 ##  :camera: Gallery![sample](https://github.com/user-attachments/assets/784f53d6-153c-4d9d-a358-d35469ed8172)
 
 ## :star2: Credit/Acknowledgment
+```
 Napasrapee Satittham
 Sorawit Phattarakuldilok
 Thinnaphat Phumphotingam
 Wish Semangern
+```
