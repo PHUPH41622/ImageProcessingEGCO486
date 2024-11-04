@@ -41,8 +41,10 @@ basic details about files, below.
 │   └── videos
 ├── README.md                                          // Overview and instructions for this project.
 ├── config.yaml                                        // config file for the training session.
+├── main.py                                            // main python file to run this project
 ├── obj.data                                           // obj result from training.
 ├── obj.names                                          // obj result from training.
+├── receipts.csv                                       // receipt history csv file
 ├── requirements.txt                                   // requirements packages installation for this project.
 └── train.txt                                          // text file result from training.
 ```
