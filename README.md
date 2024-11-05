@@ -72,4 +72,3 @@ Sorawit Phattarakuldilok
 Thinnaphat Phumphotingam
 Wish Semangern
 ```
-<img width="1049" alt="Screenshot 2567-11-05 at 15 55 20" src="https://github.com/user-attachments/assets/dfac185a-3bbd-4314-a3d8-2aa3e15c9af4">
