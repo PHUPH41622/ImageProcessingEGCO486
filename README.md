@@ -50,7 +50,20 @@ basic details about files, below.
 ```
 
 
-##  :camera: Gallery![sample](https://github.com/user-attachments/assets/784f53d6-153c-4d9d-a358-d35469ed8172)
+##  :camera: Gallery
+
+!["Screenshot 2567-11-05 at 15 55 20"](https://github.com/user-attachments/assets/dfac185a-3bbd-4314-a3d8-2aa3e15c9af4)
+
+## Annotation
+```
+snack = 10
+water = 7
+milk = 12
+crackers = 20
+candy = 15
+```
+
+
 
 ## :star2: Credit/Acknowledgment
 ```
@@ -59,3 +72,4 @@ Sorawit Phattarakuldilok
 Thinnaphat Phumphotingam
 Wish Semangern
 ```
+<img width="1049" alt="Screenshot 2567-11-05 at 15 55 20" src="https://github.com/user-attachments/assets/dfac185a-3bbd-4314-a3d8-2aa3e15c9af4">
