@@ -1,6 +1,6 @@
 # ImageProcessingEGCO486
 # Introduction
-- train yolov8 on custom datasets for detecting and simple classifying 5 objects such as water, snacks, crackers, candy and milk.
+- train YOLOv11 on custom datasets for detecting and simple classifying 5 objects such as water, snacks, crackers, candy and milk.
 
 ## :zap: Usage
 Write about how to use this project.
@@ -63,9 +63,19 @@ crackers = 20
 candy = 15
 ```
 
+##  :electric_plug: model performance annotations
+Box(P, R, mAP50, mAP50-95): This metric provides insights into the model's performance in detecting objects:
 
+- P (Precision): The accuracy of the detected objects, indicating how many detections were correct.
+
+- R (Recall): The ability of the model to identify all instances of objects in the images.
+
+- mAP50: Mean average precision calculated at an intersection over union (IoU) threshold of 0.50. It's a measure of the model's accuracy considering only the "easy" detections.
+
+- mAP50-95: The average of the mean average precision calculated at varying IoU thresholds, ranging from 0.50 to 0.95. It gives a comprehensive view of the model's performance across different levels of detection difficulty.
 
 ## :star2: Credit/Acknowledgment
+
 ```
 Napasrapee Satittham
 Sorawit Phattarakuldilok
