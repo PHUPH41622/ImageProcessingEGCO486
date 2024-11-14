@@ -1,6 +1,7 @@
 path: 'E:\ImageProcessingProj\train'
 train: images
-val: images
+val: 'E:\ImageProcessingProject_cloned\ImageProcessingEGCO486\val\images'
+
 
 names:
   0: snack

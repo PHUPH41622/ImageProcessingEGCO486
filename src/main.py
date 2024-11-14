@@ -196,7 +196,7 @@ def display_receipt_history(df: pd.DataFrame, page: int, items_per_page: int):
                     st.write("### Detected Product Image")
                     img_array = decode_image(receipt['processed_image'])
                     if img_array is not None:
-                        st.image(img_array, use_column_width=True)
+                        st.image(img_array, use_container_width=True)
         
         col1, col2, col3 = st.columns([1, 2, 1])
         with col1:
@@ -229,7 +229,7 @@ def main():
         
         @st.cache_resource
         def load_model_and_config():
-            model_path = os.path.join('.', 'runsv11s', 'detect', 'train', 'weights', 'best.pt')
+            model_path = os.path.join('.', 'weights', 'yolov11n_aug.pt')
             model = YOLO(model_path)
             return model
         
@@ -245,8 +245,8 @@ def main():
             image = load_image(uploaded_file)
             processed_image, detected_items = detect_objects(image.copy(), model)
             
-            st.image(image, caption='Input Image', use_column_width=True, channels="BGR")
-            st.image(processed_image, caption='Detected Products', use_column_width=True)
+            st.image(image, caption='Input Image', use_container_width=True, channels="BGR")
+            st.image(processed_image, caption='Detected Products', use_container_width=True)
             
             if detected_items:
                 receipt_details = calculate_receipt_details(detected_items)

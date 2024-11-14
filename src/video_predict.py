@@ -5,7 +5,7 @@ from ultralytics import YOLO
 import cv2
 import numpy as np
 
-VIDEOS_DIR = 'validate_data/videos'
+VIDEOS_DIR = 'test_data/videos'
 
 video_path = os.path.join(VIDEOS_DIR, 'test1.mov')
 
@@ -15,7 +15,7 @@ ret, frame = cap.read()
 # Fix resolution to width x height (W, H)
 H, W, _ = frame.shape
 
-model_path = os.path.join('.', 'weights', 'yolov11n_aug.pt')
+model_path = os.path.join('.', 'weights', 'yolov11s_aug.pt')
 
 # Load a model
 model = YOLO(model_path)  # load a custom model
