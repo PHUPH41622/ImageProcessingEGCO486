@@ -77,11 +77,11 @@ def detect_objects(image: np.ndarray, model: YOLO, threshold: float = 0.5) -> Tu
             
             cv2.rectangle(image, (int(x1), int(y1)), (int(x2), int(y2)), (255, 0, 0), 4)
             cv2.putText(image, item_name.upper(), (int(x1), int(y1) - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1.3, (255, 0, 0), 3, cv2.LINE_AA)
+                        cv2.FONT_HERSHEY_SIMPLEX, image.shape[1]/1000, (255, 0, 0), int(image.shape[1]/1000), cv2.LINE_AA)
     
     total_price = map_result_to_price(result_list)
-    cv2.putText(image, f"Total Price: {total_price}", (10, 120),
-                cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 0), 8, cv2.LINE_AA)
+    cv2.putText(image, f"Total Price: {total_price}", (0, image.shape[0] - 10),
+                cv2.FONT_HERSHEY_SIMPLEX, image.shape[1]/300, (0, 0, 0), int(image.shape[1]/300), cv2.LINE_AA)
     
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image_rgb, detected_items
@@ -171,7 +171,7 @@ def display_receipt_history(df: pd.DataFrame, page: int, items_per_page: int):
                     st.write("### Detected Product Image")
                     img_array = decode_image(receipt['processed_image'])
                     if img_array is not None:
-                        st.image(img_array, use_column_width=True)
+                        st.image(img_array, use_container_width=True)
         
         col1, col2, col3 = st.columns([1, 2, 1])
         with col1:
@@ -201,7 +201,7 @@ def main():
     if 'capture_image' not in st.session_state:
         st.session_state.capture_image = False
     
-    model = YOLO('./weights/yolov11n_aug.pt')
+    model = YOLO('./weights/yolov11s_aug.pt')
 
     left_col, right_col = st.columns([1, 1])
     
@@ -238,7 +238,7 @@ def main():
                 frame_rgb[:, :, 2] = cv2.add(processed_frame[:, :, 2], 0)   # Blue channel
                 captured_frame = frame_rgb.copy()
 
-                frame_placeholder.image(frame_rgb, channels="RGB", use_column_width=True)
+                frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
 
                 if st.session_state.capture_image:
                     # captured_frame = processed_frame.copy()  # Copy processed frame for capture
@@ -252,7 +252,7 @@ def main():
                     # # captured_frame_rgb = cv2.convertScaleAbs(captured_frame_rgb, alpha=1.5, beta=50)
 
                     # # Show the captured image
-                    st.image(captured_frame, caption="Captured Image", use_column_width=True)
+                    st.image(captured_frame, caption="Captured Image", use_container_width=True)
 
                     st.session_state.capture_image = False
                     # cap.release()
@@ -287,7 +287,7 @@ def main():
         elif uploaded_file is not None:
             image = load_image(uploaded_file)
             processed_image, detected_items = detect_objects(image.copy(), model)
-            st.image(processed_image, caption='Detected Products', use_column_width=True)
+            st.image(processed_image, caption='Detected Products', use_container_width=True)
 
             if detected_items:
                 receipt_details = calculate_receipt_details(detected_items)

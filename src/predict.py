@@ -4,8 +4,8 @@ from ultralytics import YOLO
 from utils import map_result_to_price
 
 # Set paths
-IMAGES_DIR = 'validate_data/images'
-image_path = os.path.join(IMAGES_DIR, 'test7.jpg')
+IMAGES_DIR = 'test_data/images'
+image_path = os.path.join(IMAGES_DIR, 'test11.jpg')
 output_image_path = '{}_out.jpg'.format(image_path)
 
 # Load the image

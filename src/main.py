@@ -229,7 +229,7 @@ def main():
         
         @st.cache_resource
         def load_model_and_config():
-            model_path = os.path.join('.', 'weights', 'yolov11n_aug.pt')
+            model_path = os.path.join('.', 'weights', 'yolov11s_aug.pt')
             model = YOLO(model_path)
             return model
         
