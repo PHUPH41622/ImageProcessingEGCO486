@@ -5,7 +5,7 @@ from ultralytics import YOLO
 from utils import map_result_to_price
 
 # Set paths
-IMAGES_DIR = 'test/images/'
+IMAGES_DIR = 'val/images/'
 testing_image = sys.argv[1]
 image_path = os.path.join(IMAGES_DIR, testing_image)
 output_image_path = '{}_out.jpg'.format(image_path)

@@ -1,15 +1,15 @@
 import subprocess
 import ast
 
-test_images = subprocess.run(['ls', 'test/images'], capture_output=True, text=True)
+test_images = subprocess.run(['ls', 'val/images'], capture_output=True, text=True)
 test_images = test_images.stdout.splitlines()
 
-labels = subprocess.run(['ls', 'test/labels'], capture_output=True, text=True)
+labels = subprocess.run(['ls', 'val/labels'], capture_output=True, text=True)
 labels = labels.stdout.splitlines()
 
 labels_content = []
 for i in labels:
-    content = subprocess.run(['cat', 'test/labels/' + i], capture_output=True, text=True)
+    content = subprocess.run(['cat', 'val/labels/' + i], capture_output=True, text=True)
     lines = content.stdout.strip().splitlines()
     
     first_column = [int(line.split()[0]) for line in lines]
