@@ -171,7 +171,7 @@ def display_receipt_history(df: pd.DataFrame, page: int, items_per_page: int):
                     st.write("### Detected Product Image")
                     img_array = decode_image(receipt['processed_image'])
                     if img_array is not None:
-                        st.image(img_array, use_column_width=True)
+                        st.image(img_array, use_container_width=True)
         
         col1, col2, col3 = st.columns([1, 2, 1])
         with col1:
@@ -200,6 +200,10 @@ def main():
         st.session_state.camera_on = False
     if 'capture_image' not in st.session_state:
         st.session_state.capture_image = False
+    if "captured_frame" not in st.session_state:
+        st.session_state.captured_frame = None
+    if "detected_items" not in st.session_state:
+        st.session_state.detected_items = None
     
     model = YOLO('./weights/yolov11s_aug.pt')
 
@@ -210,10 +214,10 @@ def main():
 
         uploaded_file = st.file_uploader("Upload an image", type=['jpg', 'jpeg', 'png'])
 
-        if st.button("เปิดกล้อง" if not st.session_state.camera_on else "ปิดกล้อง"):
+        if st.button("Open camera" if not st.session_state.camera_on else "Close camera"):
             st.session_state.camera_on = not st.session_state.camera_on
 
-        if st.button("จับภาพ") and st.session_state.camera_on:
+        if st.button("Capture") and st.session_state.camera_on:
             st.session_state.capture_image = True
 
         frame_placeholder = st.empty()
@@ -227,7 +231,7 @@ def main():
             while st.session_state.camera_on and cap.isOpened():
                 ret, frame = cap.read()
                 if not ret:
-                    st.warning("ไม่สามารถเข้าถึงกล้องได้")
+                    st.warning("Couldn't access camera")
                     break
 
                 # Detect and display
@@ -238,31 +242,16 @@ def main():
                 frame_rgb[:, :, 2] = cv2.add(processed_frame[:, :, 2], 0)   # Blue channel
                 captured_frame = frame_rgb.copy()
 
-                frame_placeholder.image(frame_rgb, channels="RGB", use_column_width=True)
+                frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
 
                 if st.session_state.capture_image:
-                    # captured_frame = processed_frame.copy()  # Copy processed frame for capture
-                    # captured_frame_rgb = cv2.cvtColor(captured_frame, cv2.COLOR_BGR2RGB)
-                    # captured_frame_rgb[:, :, 0] = cv2.add(captured_frame[:, :, 0], 20)  # Red channel adjustment
-                    # captured_frame_rgb[:, :, 1] = cv2.add(captured_frame[:, :, 1], 10)  # Green channel adjustment
-                    # captured_frame_rgb[:, :, 2] = cv2.add(captured_frame[:, :, 2], 0)   # Blue channel adjustment
-                    # captured_frame_rgb = cv2.convertScaleAbs(captured_frame_rgb, alpha=1.5, beta=50)
-
-                    # # Ensure the image is bright enough: increase brightness/contrast if needed
-                    # # captured_frame_rgb = cv2.convertScaleAbs(captured_frame_rgb, alpha=1.5, beta=50)
-
-                    # # Show the captured image
-                    st.image(captured_frame, caption="Captured Image", use_column_width=True)
-
-                    st.session_state.capture_image = False
-                    # cap.release()
                     st.session_state.camera_on = False
-                    # break
+                    st.session_state.capture_image = False
+                    cap.release()
+                    st.image(captured_frame, caption="Captured Image", use_container_width=True) 
 
-                time.sleep(0.05)
-
-            cap.release()
-
+                time.sleep(0.05)     
+            
             if detected_items:
                 receipt_details = calculate_receipt_details(detected_items)
                 st.subheader("Receipt")
@@ -270,24 +259,23 @@ def main():
                 receipt_number = generate_receipt_number()
                 st.write(f"Receipt Number: {receipt_number}")
                 st.write(f"Date and Time: {timestamp}")
-                
+                        
                 st.write("Product List:")
                 for item_name, details in receipt_details['items'].items():
                     st.write(f"- {item_name}: {details['count']} pcs (Price: {details['price']} ฿, Subtotal: {details['subtotal']} ฿)")
-                
-                st.write(f"Total Price: {receipt_details['total']} ฿")
-                
-                if st.button("Save Receipt"):
-                    save_receipt(receipt_number, timestamp, receipt_details, processed_image)
+                        
+                    st.write(f"Total Price: {receipt_details['total']} ฿")
+
+                if not st.button("Save Receipt"):
+                    save_receipt(receipt_number, timestamp, receipt_details, captured_frame)
                     st.success(f"Receipt {receipt_number} saved successfully.")
-                    st.rerun()
-            else:
-                st.warning("No products detected in the image.")
+                else:
+                    st.warning("No products detected in the image.")
 
         elif uploaded_file is not None:
             image = load_image(uploaded_file)
             processed_image, detected_items = detect_objects(image.copy(), model)
-            st.image(processed_image, caption='Detected Products', use_column_width=True)
+            st.image(processed_image, caption='Detected Products', use_container_width=True)
 
             if detected_items:
                 receipt_details = calculate_receipt_details(detected_items)
@@ -318,6 +306,17 @@ def main():
             start_date = st.date_input("Start Date", datetime.now() - timedelta(days=30))
         with col2:
             end_date = st.date_input("End Date", datetime.now())
+        
+        if st.button("Clear Receipt History"):
+            try:
+                # Remove or clear the receipts.csv file
+                if os.path.exists("receipts.csv"):
+                    os.remove("receipts.csv")
+                    st.success("Receipt history cleared successfully!")
+                else:
+                    st.info("No receipt history found to clear.")
+            except Exception as e:
+                st.error(f"An error occurred while clearing the receipt history: {e}")
         
         try:
             df = pd.read_csv('receipts.csv')
