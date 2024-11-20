@@ -14,7 +14,7 @@ output_image_path = '{}_out.jpg'.format(image_path)
 image = cv2.imread(image_path)
 
 # Load a model and weights
-model_path = os.path.join('.', 'weights', 'yolov11s_aug.pt')
+model_path = os.path.join('.', 'weights', 'yolov11n_aug.pt')
 model = YOLO(model_path)  # load a custom model
 
 threshold = 0.5

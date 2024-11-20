@@ -171,7 +171,7 @@ def display_receipt_history(df: pd.DataFrame, page: int, items_per_page: int):
                     st.write("### Detected Product Image")
                     img_array = decode_image(receipt['processed_image'])
                     if img_array is not None:
-                        st.image(img_array, use_container_width=True)
+                        st.image(img_array, use_column_width=True)
         
         col1, col2, col3 = st.columns([1, 2, 1])
         with col1:
@@ -238,7 +238,7 @@ def main():
                 frame_rgb[:, :, 2] = cv2.add(processed_frame[:, :, 2], 0)   # Blue channel
                 captured_frame = frame_rgb.copy()
 
-                frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
+                frame_placeholder.image(frame_rgb, channels="RGB", use_column_width=True)
 
                 if st.session_state.capture_image:
                     # captured_frame = processed_frame.copy()  # Copy processed frame for capture
@@ -252,7 +252,7 @@ def main():
                     # # captured_frame_rgb = cv2.convertScaleAbs(captured_frame_rgb, alpha=1.5, beta=50)
 
                     # # Show the captured image
-                    st.image(captured_frame, caption="Captured Image", use_container_width=True)
+                    st.image(captured_frame, caption="Captured Image", use_column_width=True)
 
                     st.session_state.capture_image = False
                     # cap.release()
@@ -287,7 +287,7 @@ def main():
         elif uploaded_file is not None:
             image = load_image(uploaded_file)
             processed_image, detected_items = detect_objects(image.copy(), model)
-            st.image(processed_image, caption='Detected Products', use_container_width=True)
+            st.image(processed_image, caption='Detected Products', use_column_width=True)
 
             if detected_items:
                 receipt_details = calculate_receipt_details(detected_items)

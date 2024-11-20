@@ -19,7 +19,7 @@ for i in labels:
 amount = 44
 for index, image in enumerate(test_images):
     output = subprocess.run(
-        ['python3', 'src/predict_param.py', image],
+        ['python3', 'src/utils_evaluate.py', image],
         capture_output=True,
         text=True
     )
